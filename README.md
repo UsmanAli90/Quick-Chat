@@ -36,7 +36,7 @@ Ensure you have the following installed:
 ### Installation  
 1. **Clone the Repository**:  
    ```bash  
-   git clone https://github.com/yourusername/QuickChat.git  
+   git clone https://github.com/UsmanAli90/Quick-Chat.git  
    cd QuickChat  
    ```  
 
