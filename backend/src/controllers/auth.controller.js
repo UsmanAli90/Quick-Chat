@@ -66,7 +66,7 @@ export const Login = async (req, res) => {
             _id: user._id,
             fullName: user.fullName,
             email: user.email,
-            profilepic: user.profilepic, 
+            profilepic: user.profilepic,
         })
     } catch (error) {
         console.log("error in LoginController", error.message)
@@ -78,15 +78,39 @@ export const Login = async (req, res) => {
 
 export const Logout = (req, res) => {
     //We just need to clear out JWT token in Logout
-   try{
-    res.cookie("jwt","",{maxAge:0});
-   }catch(error){
-    console.log("error in LogoutController", error.message)
-    res.status(500).json({ message: "Internal Server Error" })
-   }
+    try {
+        res.cookie("jwt", "", { maxAge: 0 });
+        return res.status(200).json({ message: "Logged out successfully" });
+    } catch (error) {
+        console.log("error in LogoutController", error.message)
+        res.status(500).json({ message: "Internal Server Error" })
+    }
 }
 
 export const upadateProfile = async (req, res) => {
+    try {
+        const { profilepic } = req.body;
+        const userID = req.user._id; //from protectRoute middleware as we stored all info of user in req.user
 
+        if (!profilepic) {
+            return res.status(400).json({ message: "Profile pic is required" })
+        }
+        const uploadResponse = await cloudinary.uploader.upload(profilepic); //uploading image to cloudinary
+        const upadtedUser = await User.findByIdAndUpdate(userID, { profilepic: uploadResponse.secure_url }, { new: true });
+        //secure_url is given by cloudinary and new:true will return the updated document(Updated user)
+        res.send(200).json(upadtedUser)
 
+    } catch (error) {
+        console.log("error in upadateProfileController", error.message)
+        res.status(500).json({ message: "Internal Server Error" })
+    }
+}
+
+export const checkAuth = (req, res) => {
+    try {
+        res.status(200).json(req.user );
+    } catch (error) {
+        console.log("error in checkAuthController", error.message)
+        res.status(500).json({ message: "Internal Server Error" })
+    }
 }
