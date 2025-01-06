@@ -8,7 +8,7 @@ const routes=express.Router();
 
 routes.get('/users',protectRoute, getUsersForSidebar)
 routes.get(':/id',protectRoute, getMessages)
-
+routes.post('/send/:id',protectRoute, sendMessage)
 
 
 export default routes
