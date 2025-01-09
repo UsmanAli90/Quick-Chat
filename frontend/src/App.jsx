@@ -7,24 +7,33 @@ import LoginPage from './pages/LoginPage';
 import SettingsPage from './pages/SettingsPage';
 import ProfilePage from './pages/ProfilePage';
 import { useAuthStore } from '../store/useAuthStore';
+import { Loader } from 'lucide-react';
+import { Navigate } from 'react-router-dom';
 
 const App = () => {
-  const {authUser,checkAuth}= useAuthStore();
+  const {authUser,checkAuth,ischeckingAuth}= useAuthStore();
 
   useEffect(()=>{
     checkAuth();  //check if the user is authenticated
   })
 
+   {/*we are checking if the user is authenticated and if the user is not authenticated and  then show the loading screen*/}
+  if(ischeckingAuth && !authUser)return( 
+    <div className="flex items-center justify-center h-screen"> 
+      <Loader className="size-10 animate-spin"></Loader>
+    </div>
+  )
+   
   console.log(authUser);
   return (
     <div>
       <Navbar></Navbar>
       <Routes>
-        <Route path='/' element={<Homepage/>}></Route>
-        <Route path='/signup' element={<SignUpPage/>}></Route>
-        <Route path='/login' element={<LoginPage/>}></Route>
+        <Route path='/' element={authUser? <Homepage/>: <Navigate to='/login'/>}></Route>
+        <Route path='/signup' element={!authUser?<SignUpPage/>:<Navigate to='/'/>}></Route>
+        <Route path='/login' element={!authUser?<LoginPage/>:<Navigate to='/'/>}></Route>
         <Route path='/settings' element={<SettingsPage/>}></Route>
-        <Route path='/profile' element={<ProfilePage/>}></Route>
+        <Route path='/profile' element={authUser? <ProfilePage/>: <Navigate to='/login'/>}></Route>
 
       </Routes>
     </div>
