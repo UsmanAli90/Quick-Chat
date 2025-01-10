@@ -24,8 +24,6 @@ const App = () => {
       <Loader className="size-10 animate-spin"></Loader>
     </div>
   )
-
-  console.log(authUser);
   return (
     <div>
       <Navbar></Navbar>
