@@ -33,24 +33,24 @@ const MessageInput = () => {
     const handleSendMessage = async (e) => {
         e.preventDefault();
         const trimmedText = (text || '').trim();
-        if(!trimmedText.trim()&& !imagePreview){
+        if (!trimmedText.trim() && !imagePreview) {
             return
         }
         try {
             await sendMessage({
-                text:text.trim(),
-                image:imagePreview
+                text: text.trim(),
+                image: imagePreview
             })
             setText('');
             setImagePreview(null);
-            if(fileInputRef.current){
-                fileInputRef.current.value="";
+            if (fileInputRef.current) {
+                fileInputRef.current.value = "";
             }
-            
+
         } catch (error) {
-            console.log("Failed to send Message: ",error)
+            console.log("Failed to send Message: ", error)
         }
-     }
+    }
     return (
         <div className="p-4 w-full">
             {imagePreview && (          //If there is an image render the following

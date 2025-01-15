@@ -7,7 +7,7 @@ import { sendMessage } from '../controllers/message.controller.js';
 const routes=express.Router();
 
 routes.get('/users',protectRoute, getUsersForSidebar)
-routes.get(':/id',protectRoute, getMessages)
+routes.get('/:id',protectRoute, getMessages)
 routes.post('/send/:id',protectRoute, sendMessage)
 
 

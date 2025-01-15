@@ -23,6 +23,7 @@ export const getUsersForSidebar =async(req,res)=>{
                 {senderId:userToChatId,receiverId:myId}
             ]
         })
+        res.status(200).json({ messages });
     } catch (error) {
         console.log("error in getMessages",error.message);
         res.status(500).json({message:"Internal Server Error"});
