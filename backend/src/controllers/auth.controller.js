@@ -50,16 +50,16 @@ export const Login = async (req, res) => {
     const { email, password } = req.body;
     try {
         if (!email || !password) {
-            res.status(400).json({ message: "All fields are required" })
+            return res.status(400).json({ message: "All fields are required" })
         }
         const user = await User.findOne({ email });
         if (!user) {
-            res.status(400).json({ message: "Invalid credentials" })
+            return res.status(400).json({ message: "Invalid credentials" })
         }
 
         const ispasswordCorrect = await bcrypt.compare(password, user.password)
         if (!ispasswordCorrect) {
-            res.status(400).json({ message: "Invalid credentials" })
+            return res.status(400).json({ message: "Invalid credentials" })
         }
         //generate JWT token
         generateToken(user._id, res);
