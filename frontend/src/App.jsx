@@ -13,8 +13,10 @@ import { Navigate } from 'react-router-dom';
 import {Toaster} from 'react-hot-toast';
 
 const App = () => {
-  const { authUser, checkAuth, ischeckingAuth } = useAuthStore();
+  const { authUser, checkAuth, ischeckingAuth, onlineUsers } = useAuthStore();
   const {theme}=useThemeStore();
+
+  console.log("Online Users are",{onlineUsers});
 
   useEffect(() => {
     checkAuth();  //check if the user is authenticated
