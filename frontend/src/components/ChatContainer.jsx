@@ -7,12 +7,16 @@ import { useAuthStore } from '../../store/useAuthStore'
 import formatMessageTime from '../lib/utils'
 
 const ChatContainer = () => {
-  const { messages, isMessageLoading, getMessages, selectedUser } = useChatStore();
+  const { messages, isMessageLoading, getMessages, selectedUser, subscribeToNewMessages, unsubscribeFromMessages } = useChatStore();
   const { authUser } = useAuthStore();
 
   useEffect(() => {
     getMessages(selectedUser._id);
-  }, [selectedUser._id, getMessages])
+
+    subscribeToNewMessages()
+
+    return () => unsubscribeFromMessages()
+  }, [selectedUser._id, getMessages, subscribeToNewMessages, unsubscribeFromMessages])
 
   if (isMessageLoading) {
     <div className="flex-1 flex flex-col overflow-auto">
@@ -33,24 +37,24 @@ const ChatContainer = () => {
             className={`chat ${message.senderId === authUser._id ? 'chat-end' : 'chat-start'}`}>
             <div className='chat-image avatar'>
               <div className='size-10 rounded-full border'>
-                <img 
-                src={message.senderId === authUser._id ? authUser.profilepic || '/avatar.png' : selectedUser.profilepic || '/avatar.png'} 
-                alt="" />
+                <img
+                  src={message.senderId === authUser._id ? authUser.profilepic || '/avatar.png' : selectedUser.profilepic || '/avatar.png'}
+                  alt="" />
               </div>
 
             </div>
 
             <div className='chat-header mb-1'>
               <time className='text-xs opacity-50 ml-1'>
-              {formatMessageTime(message.createdAt) }
+                {formatMessageTime(message.createdAt)}
               </time>
             </div>
 
             <div className='chat-bubble flex flex-col'>
-              {message.image &&(
+              {message.image && (
                 <img src={message.image} alt='Attachement' className='sm:max-w-[200px] rounded-md mb-2' />
               )}
-              {message.text &&<p>{message.text}</p>}
+              {message.text && <p>{message.text}</p>}
             </div>
           </div>
         ))}
