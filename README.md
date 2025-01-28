@@ -64,7 +64,7 @@ Open your browser and navigate to:
 ```
 http://localhost:<PORT>
 ```
-Replace `<PORT>` with the port number where the app is running (default is 3000 for React).
+Replace `<PORT>` with the port number where the app is running.
 
 
 ---
