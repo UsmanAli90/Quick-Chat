@@ -33,7 +33,7 @@ Follow these steps to run the application locally:
 ```bash
 https://github.com/UsmanAli90/Quick-Chat.git
 cd Quick-Chat
-
+```
 ### 2. Install Dependencies
 ```bash
 npm run build
