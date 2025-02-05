@@ -18,7 +18,7 @@ dotenv.config();
 app.use('/auth', authRoutes)
 app.use('/message', messageRoutes)
 
-const port = process.env.PORT;
+const port = process.env.PORT || 5001;
 const __dirname = path.resolve();
 
 if (process.env.NODE_ENV === "production") {
