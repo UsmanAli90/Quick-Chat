@@ -1,4 +1,7 @@
+# Test it out here: 
+https://quick-chat-mau1.onrender.com/
 
+---
 # QuickChat
 
 QuickChat is a real-time chat application built with the **MERN stack** (MongoDB, Express, React, Node.js) and **Socket.IO**. It offers instant and seamless communication with a dynamic and responsive interface, secure messaging, and efficient backend services to support real-time interactions.
